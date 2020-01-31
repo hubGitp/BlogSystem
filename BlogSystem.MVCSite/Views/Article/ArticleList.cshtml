@@ -1,0 +1,154 @@
+﻿@model IEnumerable<BlogSystem.Dto.ArticleDto>
+
+@{
+    ViewBag.Title = "ArticleList";
+}
+
+<h2>ArticleList</h2>
+
+<p>
+    @Html.ActionLink("Create New", "CreateArticle")
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GoodCount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BadCount)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreateTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GoodCount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BadCount)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditArticle", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "ArticleDetails", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="6">
+                <ul class="pageList">
+                    @if (ViewBag.PageCount <= 7)
+                    {
+                        //数据实际页码<=可容纳的总页码
+                        for (int i = 1; i <= ViewBag.PageCount; i++)
+                        {
+                            <li>
+                                <a href="/Article/ArticleList?PageIndex=@(i-1)">@i</a>
+                            </li>
+                        }
+                    }
+                    else
+                    {
+                        //数据实际页码>可容纳的总页码
+                        if (ViewBag.PageIndex <= 7 / 2)
+                        {
+                            for (int i = 1; i <= 7; i++)
+                            {
+                                if (i == ViewBag.PageIndex+1)
+                                {
+                                    <li>
+                                        <a style="color:red;" href="#">@i</a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li>
+                                        <a href="/Article/ArticleList?PageIndex=@(i-1)">@i</a>
+                                    </li>
+                                }
+
+
+                            }
+                        }
+                        else if (ViewBag.PageCount - ViewBag.PageIndex <= 7 / 2)
+                        {
+                            for (int i = ViewBag.PageCount - (7 - 1); i <= ViewBag.PageCount; i++)
+                            {
+                                if (i == ViewBag.PageIndex+1)
+                                {
+                                    <li>
+                                        <a style="color:red" href="#">@i</a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li>
+                                        <a href="/Article/ArticleList?PageIndex=@(i-1)">@i</a>
+                                    </li>
+                                }
+                            }
+                        }
+                        else
+                        {
+                            for (int i = ViewBag.PageIndex - 7 / 2 + 1; i <= ViewBag.PageIndex + 7 / 2 + 1; i++)
+                            {
+                                if (i == ViewBag.PageIndex+1)
+                                {
+                                    <li>
+                                        <a style="color:red" href="#">@i</a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li>
+                                        <a href="/Article/ArticleList?PageIndex=@(i-1)">@i</a>
+                                    </li>
+                                }
+                            }
+                        }
+                    }
+                </ul>
+            </td>
+        </tr>
+    </tfoot>
+
+</table>
+@section headers{
+    <style>
+        .pageList{
+            display:flex;
+            list-style:none;
+        }
+        .pageList li{
+            margin-right:5px;
+            font-size:25px;
+        }
+        .pageList li a{
+            color:blue;
+        }
+    </style>
+    }
