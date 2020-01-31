@@ -1,0 +1,6 @@
+这个博客mode用code first
+BLL IBLL是业务逻辑层
+DLL IDLL是数据链路层
+model是模型层，里面含有所有模型类
+BlogSize是UI层里面是.net mvc的体现
+这是我初学.net mvc 写的一个小demo 里面功能还不是很完善，也只是写的很粗糙
